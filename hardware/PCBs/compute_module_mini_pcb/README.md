@@ -1,6 +1,4 @@
-# ESC to Thruster Control PCB
-
-This board handles ESC power and thruster connections to the external thrusters. There is also available power out with XT60 connectors. Further, there are 8 XT30 connectors for the ESCs.
+# Compute Module Mini
 
 <p align="center">
   <img src="./images/compute_module_mini_pcb_front.png" alt="Image 1" width="200"/>
