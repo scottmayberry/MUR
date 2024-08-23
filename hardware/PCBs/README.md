@@ -1,10 +1,10 @@
-# Miniature Underwater Robot (MUR) Control System
+# Miniature Underwater Robot (MUR) Hardware - PCBs
 
-Welcome to the **Miniature Underwater Robot (MUR) Hardware PCB** repository. This documentation provides an overview of the integrated hardware components designed to control and monitor the operations of the MUR. The system is composed of three primary printed circuit boards (PCBs), each serving specialized functions to ensure efficient and reliable underwater exploration and operations.
+Welcome to the **Miniature Underwater Robot (MUR) Hardware - PCBs** repository. This documentation provides an overview of the integrated hardware components designed to control and monitor the operations of the MUR. The system is composed of three primary printed circuit boards (PCBs), each serving specialized functions to ensure efficient and reliable underwater exploration and operations.
 
 ## Table of Contents
 
-- [Miniature Underwater Robot (MUR) Control System](#miniature-underwater-robot-mur-control-system)
+- [Miniature Underwater Robot (MUR) Hardware - PCBs](#miniature-underwater-robot-mur-hardware---pcbs)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Components](#components)
@@ -40,8 +40,8 @@ Each component is designed to integrate with the others, providing a cohesive an
 ### 1. MUR Compute Module Mini
 
 <p align="center">
-  <img src="./MUR_Compute_Module_Mini/images/compute_module_mini_front.png" alt="Compute Module Mini Front" width="250"/>
-  <img src="./MUR_Compute_Module_Mini/images/compute_module_mini_back.png" alt="Compute Module Mini Back" width="250"/>
+  <img src="./mur_compute_module_mini_pcb/images/compute_module_mini_pcb_front.png" alt="Image 1" width="200"/>
+  <img src="./mur_compute_module_mini_pcb/images/compute_module_mini_pcb_back.png" alt="Image 2" width="200"/>
 </p>
 
 The **MUR Compute Module Mini** serves as the brain of the underwater robot, providing robust computational capabilities and versatile connectivity options necessary for complex underwater tasks.
@@ -111,8 +111,8 @@ This PCB enhances the MUR's capabilities by:
 ### 3. MUR ESC to Thruster Control PCB
 
 <p align="center">
-  <img src="./MUR_ESC_to_Thruster_Control_PCB/images/esc_to_thruster_pcb_front.png" alt="ESC to Thruster Control PCB Front" width="250"/>
-  <img src="./MUR_ESC_to_Thruster_Control_PCB/images/esc_to_thruster_pcb_back.png" alt="ESC to Thruster Control PCB Back" width="250"/>
+  <img src="./mur_esc_to_thruster_pcb/images/esc_to_thruster_pcb_front.png" alt="Image 1" width="200"/>
+  <img src="./mur_esc_to_thruster_pcb/images/esc_to_thruster_pcb_back.png" alt="Image 2" width="200"/>
 </p>
 
 The **MUR ESC to Thruster Control PCB** serves as the power distribution hub for the MUR's propulsion system, ensuring reliable and efficient delivery of power to the thrusters.

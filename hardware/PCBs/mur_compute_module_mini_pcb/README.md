@@ -1,5 +1,9 @@
 # MUR Compute Module Mini
 
+<p align="center">
+  <img src="./images/compute_module_mini_pcb_front.png" alt="Image 1" width="200"/>
+  <img src="./images/compute_module_mini_pcb_back.png" alt="Image 2" width="200"/>
+</p>
 
 This README describes the sensor components, communication features, and other key aspects integrated into the MUR Control and Communication PCB. These components are essential for monitoring and controlling the environmental conditions, orientation, movement, and communication of the Miniature Underwater Robot (MUR).
 
