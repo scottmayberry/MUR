@@ -1,0 +1,7 @@
+<launch>
+  <rosparam command="load" file="$(find bluebuzz)/config/bluebuzz_config.yaml" />
+  <group ns="bluebuzz">
+    <node pkg="bluebuzz" name="bluebuzz_udp" type="ros_bluebuzz_udp.py" output="screen"/>
+    <node pkg="bluebuzz" name="bluebuzz_transmit_tester" type="ros_bluebuzz_transmit.py" output="screen"/>
+  </group>
+</launch>

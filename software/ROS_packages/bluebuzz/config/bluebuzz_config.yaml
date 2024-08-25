@@ -1,0 +1,9 @@
+---
+bluebuzz_info:
+  transmit_port: 8888
+  receive_port: 8887
+  volume: 0.1
+  baud: 200
+  rscodec: 10
+  messageBreakLength: 32
+  sample_rate: 20

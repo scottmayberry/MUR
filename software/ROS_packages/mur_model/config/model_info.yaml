@@ -1,0 +1,131 @@
+---
+model_info:
+  ref_origin_description: "back of sub, centered in tube"
+  tf2_update_rate: 10
+
+  static_tf2_links:
+    - name: 'map'
+      pos: [0,0,0]
+      orientation: [0, 0, 0]
+      relative_to: 'world'
+    - name: 'fossen_world'
+      pos: [0,0,0]
+      orientation: [3.14159, 0, 1.57079632679]
+      relative_to: 'world'
+    - name: 'com'
+      pos: [0.28109, -0.00002, 0.01191]
+      orientation: [3.14159, 0, 1.57079632679]
+      relative_to: 'fossen_base_link'
+    - name: 'fossen_com'
+      pos: [0.28109, -0.00002, 0.01191]
+      orientation: [0, 0, 0]
+      relative_to: 'fossen_base_link'
+    - name: 'cob'
+      pos: [0.28109, 0, 0] 
+      orientation: [3.14159, 0, 1.57079632679]
+      relative_to: 'fossen_base_link'
+    - name: 'base_link_non_fossen'
+      pos: [0,0,0]
+      orientation: [3.14159, 0, 0]
+      relative_to: 'fossen_base_link'
+
+  dynamic_tf2_links:
+    - name: 'fossen_base_link'
+      pos: [0,0,0]
+      orientation: [3.14159, 0, 1.57079632679]
+      relative_to: 'world'
+
+
+  # base_link: #relative to world frame
+  #   pos: [0,0,0]
+  #   orientation: [3.14159, 0, 0]
+  # com: #relative to baselink
+  #   pos: [0.28109, -0.00002, 0.01191]
+  #   orientation: [0, 0, 0]
+  # cob:  # x,y,z in meters
+  #   pos: [0.28109, 0, 0] 
+  #   orientation: [0, 0, 0]
+  mass: 6.174 # kg
+  inertia: 
+    - [0.05239535, 0.00009810, 0.01155765]
+    - [0.00009810, 0.22440414, 0.00002149]
+    - [0.01155765, 0.00002149, 0.24956096]
+  control_inputs: [x,y,z,roll,yaw] #[x,y,z,roll,pitch,yaw] as options. delete, any not available
+  thrusters: # all positions/orientations relative to base_link
+      # back motors
+      - pos: [0.03348,-0.12683,0] # back left
+        orientation: [0, 0, 2.35619] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: true
+        id: 1
+        esc: 'bluerobotics'
+      - pos: [0.03348,0.12683,0] # back right
+        orientation: [0, 0, 3.92699] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: false
+        id: 4
+        esc: 'bluerobotics'
+      # mid motors
+      - pos: [0.253,-0.128,-0.015] # mid left
+        orientation: [0, 1.5708, 0] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: false
+        id: 0
+        esc: 'bluerobotics'
+      - pos: [0.253,0.128,-0.015] # mid right
+        orientation: [0, 1.5708, 0] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: false
+        id: 2
+        esc: 'bluerobotics'
+      # front motors
+      - pos: [0.47252,-0.12683,-0.001] # front left
+        orientation: [0, 0, 0.785398] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: false
+        id: 5
+        esc: 'bluerobotics'
+      - pos: [0.47252,0.12683,-0.001] # front right
+        orientation: [0, 0, -0.785398] # radians
+        relative_to: 'fossen_base_link'
+        flip_esc_command: false
+        id: 3
+        esc: 'bluerobotics'
+
+  escs:
+    bluerobotics: # combination of blueESC and t200
+      zero_threshold: 0.005
+      zero_value: 1500
+      thrust_force: [-39.91307, 39.91307]
+      formula: "Piecewise((1500, Abs(x) < 0.02), (round(-10.8*(3.5*Abs(x))**2 + (3.5*Abs(x))*119.5 + 1540), x > 0), (round(11.31*(3.5*Abs(x))**2 + (3.5*Abs(x))*-137.4 + 1456), x <= 0))"
+
+  camera_data:
+    seconds_between_camera_boot_requests: 20
+    cameras:
+      - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_4_1_0"
+        id: "forward"
+        width: 640
+        height: 480
+        fps: 30
+        stream_port: 8080
+        pos: [0,0,0]
+        orientation: [0,0,0]
+        relative_to: 'fossen_base_link'
+      - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_3_1_0"
+        id: "radial_right"
+        width: 640
+        height: 480
+        fps: 30
+        stream_port: 8081
+        pos: [0,0,0]
+        orientation: [0,0,0]
+        relative_to: 'fossen_base_link'
+      - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_2_2_1_0"
+        id: "radial_left"                                             # forms tf2 frame
+        width: 640
+        height: 480
+        fps: 30
+        stream_port: 8082
+        pos: [0,0,0]
+        orientation: [0,0,0]
+        relative_to: 'fossen_base_link'

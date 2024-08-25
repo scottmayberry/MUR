@@ -1,0 +1,9 @@
+<launch>
+  <rosparam command="load" file="$(find mur)/config/global_config.yaml" />
+  <rosparam command="load" file="$(find mur)/config/environment_info.yaml" />
+  <!-- Launch nodes or other launch files -->
+  <include file="$(find mur_sensors)/launch/mur_sensors.launch"/>
+  <!-- <include file="$(find bluebuzz)/launch/bluebuzz.launch"/> -->
+  <include file="$(find mur_model)/launch/mur_model.launch"/>
+  <include file="$(find mur_control)/launch/mur_control.launch"/>
+</launch>

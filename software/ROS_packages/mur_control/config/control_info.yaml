@@ -1,0 +1,30 @@
+---
+control_info:
+  manual_thruster_update_hz: 20
+  stabilization:
+    rate: 25
+    gains:
+      x:
+        kp: 0
+        ki: 0
+        kd: 0
+      y:
+        kp: 0
+        ki: 0
+        kd: 0
+      z:
+        kp: 10
+        ki: 0
+        kd: 0.2
+      roll:
+        kp: 0
+        ki: 0
+        kd: 0
+      pitch:
+        kp: 0
+        ki: 0
+        kd: 0
+      yaw:
+        kp: 1
+        ki: 0.3
+        kd: 0.2

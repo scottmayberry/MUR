@@ -1,0 +1,24 @@
+---
+module_info:
+  hasBooted: false # upon sensor communication, sets hasBooted
+  modules:
+    - name: "mur_battery_fuselage"
+      mac: "2C-58-87-FB-FB-5C"
+      ports: 
+        comm: 51585
+    - name: "mur_compute_sensors"
+      mac: "B6-11-0E-D1-DE-BD"
+      ports: 
+        comm: 51585
+    - name: "mur_compute_module"
+      mac: "e4:5f:01:c8:cc:72"
+      ports:
+        general: 8888
+        camera: 5005
+    # - name: "test_comp"
+    #   ipaddress: "192.168.1.144"
+    #   # mac: "5D-49-0E-E9-C8-02"
+    #   receivePort: 8888
+    # - name: "bluebuzz"
+    #   ipaddress: "192.168.1.199"
+      # receive port in bluebuzz package

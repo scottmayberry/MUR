@@ -1,0 +1,12 @@
+---
+environment_info:
+  working_fluid:
+    # type: "seawater"
+    # density: 1025 #kg/m^3
+    type: "freshwater"
+    density: 997 #kg/m^3
+    # type: "air_20C"
+    # density: 1.204 #kg/m^3
+  gravity_constant: 9.80665
+
+  

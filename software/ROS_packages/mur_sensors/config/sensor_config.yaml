@@ -1,0 +1,157 @@
+---
+sensor_info:
+  comm_port: 51585
+  broadcast_port: 51584
+  server_id_message: "server"
+  server_ping_info:
+    seconds_between_pings: 3
+    server_id_message: "server"
+    transmit_port: 8888
+  sensor_udp_receive_info:
+    receive_port: 8888
+
+  imu_sensor_fusion:
+    - accelerometer: MPU6500
+      accelerometer_module: 'mur_battery_fuselage'
+      gyroscope: MPU6500
+      gyroscope_module: 'mur_battery_fuselage'
+      magnetometer: LIS2MDL
+      magnetometer_module: 'mur_battery_fuselage'
+      sample_rate: 50
+    - accelerometer: KXTJ3
+      accelerometer_module: 'mur_battery_fuselage'
+      gyroscope: LSM6DS3
+      gyroscope_module: 'mur_battery_fuselage'
+      magnetometer: LIS2MDL
+      magnetometer_module: 'mur_battery_fuselage'
+      sample_rate: 20
+    - accelerometer: MPU6500
+      accelerometer_module: 'mur_compute_sensors'
+      gyroscope: MPU6500
+      gyroscope_module: 'mur_compute_sensors'
+      magnetometer: HSCDTD
+      magnetometer_module: 'mur_compute_sensors'
+      sample_rate: 20
+
+
+  sensors:
+  #orientations, pose relative to base_link (back of mur center tube)
+    MPU6500:
+      topic: 'MPU6500'
+      type: Twist
+      instances:
+        - pos: [0.2401004, 0.0086149, -0.0126]
+          orientation: [3.141593, 0, -3.141593]
+          module: 'mur_battery_fuselage' #used to link ip address
+          queue: 2
+        - pos: [0.4873774, 0.0242571, 0.0297765]
+          orientation: [1.570796, 0, 1.570796]
+          module: 'mur_compute_sensors' #used to link ip address
+          queue: 2
+    LSM6DS3:
+      topic: 'LSM6DS3'
+      type: Twist
+      instances:
+        - pos: [0.2341314, 0.0106469, -0.0126]
+          orientation:  [3.141593, 0, 1.570796]
+          module: 'mur_battery_fuselage' #used to link ip address
+          queue: 2
+        - pos: [0.4873774, 0.0368302, 0.0293955]
+          orientation: [1.570796, 0, 1.570796]
+          module: 'mur_compute_sensors' #used to link ip address
+          queue: 2
+    KXTJ3:
+      topic: 'KXTJ3'
+      type: Vector3
+      instances:
+        - pos: [0.2299404, 0.0125519, -0.0126]
+          orientation: [3.141593, 0, 1.570796]
+          module: 'mur_battery_fuselage' #used to link ip address
+          queue: 2
+        - pos: [0.4873774, 0.0330202, 0.0348565]
+          orientation: [0, 1.570796, 0]
+          module: 'mur_compute_sensors' #used to link ip address
+          queue: 2
+    BNO055:
+      topic: 'BNO055'
+      type: Imu
+      instances:
+        - pos: [0.2400982, -0.0029786, -0.0242]
+          orientation: [3.141593, 0, 1.570796]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+        - pos: [0.5043774, -0.0086167, 0.0290098]
+          orientation: [1.570796, 0, -1.570796] # [1.570796, -1.570796, -1.570796]
+          module: 'mur_compute_sensors' #used to link IP address
+          queue: 2
+    LIS2MDL:
+      topic: 'LIS2MDL'
+      type: Vector3
+      instances:
+        - pos: [0.2274004, 0.0164889, -0.0126]
+          orientation: [0, 0, 1.570796]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+        - pos: [0.4873774, 0.0296546, 0.0268555]
+          orientation: [1.570796, 3.141593, -1.570796]
+          module: 'mur_compute_sensors' #used to link IP address
+          queue: 2
+    AHT20: 
+      topic: 'AHT20'
+      type: Float32
+      instances:
+        - pos: [0.2419030, 0.0009188, -0.0126]
+          orientation: [0, 0, 0]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+        - pos: [0.4909774, 0.0091441, 0.0313005]
+          orientation: [0, 0, 0]
+          module: 'mur_compute_sensors' #used to link IP address
+          queue: 2
+    DPS310:
+      topic: 'DPS310'
+      type: Float32
+      instances:
+        - pos: [0.2483554, 0.0086150, -0.0126]
+          orientation: [0, 0, 0]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+        - pos: [0.4909774, 0.0156210, 0.0296496]
+          orientation: [0, 0, 0]
+          module: 'mur_compute_sensors' #used to link IP address
+          queue: 2
+    HSCDTD:
+      topic: 'HSCDTD'
+      type: Vector3
+      instances:
+        - pos: [0.2460694, 0.0015030, -0.0126]
+          orientation: [3.141593, 0, 0]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+        - pos: [0.4873774, 0.0278131, 0.0330785]
+          orientation: [3.141593, -1.570796, 0]
+          module: 'mur_compute_sensors' #used to link IP address
+          queue: 2
+    MS5837: # MS5837_02BA
+      topic: 'MS5837'
+      type: FluidPressure
+      instances:
+        - pos: [-0.03035, 0, 0.033]
+          orientation: [0, 0, 0]
+          module: 'mur_battery_fuselage' #used to link IP address
+          queue: 2
+      metadata:
+        - zero_z_depth_pressure: 1005.1599731445312
+
+    # GPS: 
+    #   topic: 'GPS'
+    #   type: Twist
+    #   instances:
+    #     - pos: [0.2419030, 0.0009188, -0.0126]
+    #       orientation: [0, 0, 0]
+    #       module: 'mur_battery_fuselage' #used to link IP address
+    #       queue: 2
+    #     - pos: [0.4909774, 0.0091441, 0.0313005]
+    #       orientation: [0, 0, 0]
+    #       module: 'mur_compute_sensors' #used to link IP address
+    #       queue: 2

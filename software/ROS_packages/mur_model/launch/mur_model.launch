@@ -1,0 +1,18 @@
+<launch>
+  <rosparam command="load" file="$(find mur_model)/config/model_info.yaml" />
+  <group ns="model">
+    <node pkg="mur_model" name="thruster_command_conversion" type="ros_thruster_command_conversion.py" output="screen"/>
+    <node pkg="mur_model" name="thruster_us_udp" type="ros_thruster_microsecond_udp.py" output="screen"/>
+    <node pkg="mur_model" name="tf2_broadcaster" type="static_tf2_broadcaster.py" output="screen"/>
+
+    <node pkg="mur_model" name="imu_orientation_updater" type="imu_baselink_updater.py" output="screen"/>
+    <node pkg="mur_model" name="depth_updater" type="pressure_to_depth.py" output="screen"/>
+
+    <node pkg="mur_model" name="camera_boot_server" type="camera_boot_server_udp.py" output="screen"/>
+    <node pkg="mur_model" name="camera_udp_to_ros" type="camera_udp_to_ros.py" output="screen"/>
+    <!-- <node pkg="mur_model" name="thruster_manual" type="ros_manual_thruster_driver.py" output="screen"/> -->
+    <!-- <node pkg="mur_model" name="thruster_wrench_generator" type="ros_thruster_wrench_generator.py" output="screen"/> -->
+    <!-- <node pkg="mur_model" name="thruster_wrench_comparison_visualizer" type="ros_thruster_wrench_comparison_visualizer.py" output="screen"/> -->
+    <!-- <node pkg="mur_model" name="thruster_identification_udp" type="ros_thruster_to_id_microsecond_udp.py" output="screen"/> -->
+  </group>
+</launch>

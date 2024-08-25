@@ -1,0 +1,96 @@
+---
+model_info:
+  ref_origin_description: "back of sub, centered in tube"
+  com: [281.09, -0.02, 11.91] #x,y,z
+  mass: 6174 #grams
+  inertia: 
+    - [52382881.48, 77016.35, 11499941.55]
+    - [77016.35, 224004382.14, 18433.94]
+    - [11499941.55, 18433.94, 249168085.10]
+  thrusters:
+      # - pos: [x,y,z]
+      #   orientation: [roll (around x), pitch (around y), yaw (around z)]
+      # back motors
+      - pos: [33.48,-126.83,0]
+        orientation: [0, 0, 135]
+        use_radians: False
+        id: 0
+        esc: 'bluerobotics'
+      - pos: [33.48,126.83,0]
+        orientation: [0, 0, 225]
+        use_radians: False
+        id: 1
+        esc: 'bluerobotics'
+      # mid motors
+      - pos: [253,-128,-15]
+        orientation: [0, 90, 0]
+        use_radians: False
+        id: 2
+        esc: 'bluerobotics'
+      - pos: [253,128,-15]
+        orientation: [0, 90, 0]
+        use_radians: False
+        id: 3
+        esc: 'bluerobotics'
+      # front motors
+      - pos: [472.52,-126.83,-1]
+        orientation: [0, 0, 45]
+        use_radians: False
+        id: 4
+        esc: 'bluerobotics'
+      - pos: [472.52,126.83,-1]
+        orientation: [0, 0, -45]
+        use_radians: False
+        id: 5
+        esc: 'bluerobotics'
+
+  escs:
+    bluerobotics:
+      zero_threshold: 0.02
+      zero_value: 1500
+      formula: "Piecewise((1500, Abs(x) < 0.02), (round(-10.8*(3.5*Abs(x))**2 + (3.5*Abs(x))*119.5 + 1540), x > 0), (round(11.31*(3.5*Abs(x))**2 + (3.5*Abs(x))*-137.4 + 1456), x <= 0))"
+
+  sensors:
+    MPU6500:
+      - pos: [107.25, 7.61, -8.19]
+        orientation: [180, 0, -90]
+        use_radians: False
+        topic: 'MPU6500'
+        type: Twist
+    LSM6DS3TR:
+      - pos: [103.5, -1.79, -8.19]
+        orientation: [0, 180, 0]
+        use_radians: False
+        topic: 'LSM6DS3TR'
+        type: Twist
+    KXTJ3_1057:
+      - pos: [105.4, 14.34, -8.19]
+        orientation: [180, 0, 0]
+        use_radians: False
+        topic: 'KXTJ3_1057'
+        type: Vector3
+    BNO055:
+      - pos: [102.6,-7.98,-21.23]
+        orientation: [180, 0, -90]
+        use_radians: False
+        topic: 'BNO055'
+        type: Imu
+    LIS2MDL:
+      - pos: [101.55, -9.63, -8.19]
+        orientation: [180, 0, 90]
+        use_radians: False
+        topic: 'LIS2MDL'
+        type: Vector3
+    AHT20: 
+      - pos: [100.57, -14.49, -8.19]
+        orientation: [0,0,0]
+        use_radians: False
+        topic: 'AHT20'
+        type: Float32
+    DPS310:
+      - pos: [108.07, 18.78, -8.19]
+        orientation: [0,0,0]
+        use_radians: False
+        topic: 'DPS310'
+        type: Float32
+
