@@ -45,3 +45,6 @@ MUR offers several base control capabilities that enable it to operate effective
 ## Wiki
 
 For detailed assembly instructions, operational guides, and additional information, please visit the [MUR Wiki](#).
+
+## License
+[See open-source license](LICENSE.md)
