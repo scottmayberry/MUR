@@ -127,6 +127,9 @@ model_info:
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
+        # optional values
+        autofocus: false
+        focus_absolute: 200 # only applied if autofocus is off
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_3_1_0"
         id: "forward"
         width: 1920
@@ -138,6 +141,9 @@ model_info:
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
+        # optional values
+        autofocus: false
+        focus_absolute: 200 # only applied if autofocus is off
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_2_2_1_0"
         id: "radial_right"                                            # forms tf2 frame
         width: 1920
@@ -149,3 +155,6 @@ model_info:
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
+        # optional values
+        autofocus: false
+        focus_absolute: 200 # only applied if autofocus is off
