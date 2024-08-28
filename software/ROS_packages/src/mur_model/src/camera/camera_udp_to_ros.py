@@ -7,25 +7,27 @@ from sensor_msgs.msg import Image
 from std_msgs.msg import Header
 from cv_bridge import CvBridge, CvBridgeError
 
-def open_stream(camera, fps, index):
+def open_stream(camera):
     stream_url = camera['stream_url']
     fps = camera['fps']
-    cam_id = camera['cam_id']
+    cam_id = camera['id']
     cam_frame_tf2 = f'camera_{cam_id}' if 'name' not in camera.keys() else camera['name']
+    flip_horizontal = camera['flip_horizontal']
+    flip_vertical = camera['flip_vertical']
 
     while not rospy.is_shutdown():
         cap = cv2.VideoCapture(stream_url)
         if cap.isOpened():
             rospy.loginfo(f"Successfully opened stream for camera_{cam_id} at {fps} FPS")
             # Launch a camera node with the appropriate index
-            launch_camera_node(cam_id, cap, fps, cam_frame_tf2)
+            launch_camera_node(cam_id, cap, fps, cam_frame_tf2, flip_horizontal, flip_vertical)
             break
         else:
-            rospy.logwarn(f"Failed to open stream for camera_{index}. Retrying in 10 seconds...")
+            rospy.logwarn(f"Failed to open stream for camera_{cam_id}. Retrying in 10 seconds...")
             time.sleep(10)
         cap.release()
 
-def launch_camera_node(cam_id, cap, target_fps, cam_frame_tf2):
+def launch_camera_node(cam_id, cap, target_fps, cam_frame_tf2, flip_horizontal=False, flip_vertical=False):
     pub = rospy.Publisher(f'/camera_{cam_id}/image_raw', Image, queue_size=10)
     rate = rospy.Rate(target_fps)  # Target FPS for publishing frames
     bridge = CvBridge()
@@ -36,6 +38,13 @@ def launch_camera_node(cam_id, cap, target_fps, cam_frame_tf2):
     while not rospy.is_shutdown() and cap.isOpened():
         ret, frame = cap.read()
         if ret:
+            # Apply flipping based on the flags
+            if flip_horizontal and flip_vertical:
+                frame = cv2.flip(frame, -1)  # Flip both horizontally and vertically
+            elif flip_horizontal:
+                frame = cv2.flip(frame, 1)  # Flip horizontally
+            elif flip_vertical:
+                frame = cv2.flip(frame, 0)  # Flip vertically
             try:
                 # Convert frame to a ROS Image message and publish it
                 image_msg = bridge.cv2_to_imgmsg(frame, "bgr8")
@@ -59,7 +68,7 @@ def load_camera_streams(compute_module_ip, cameras):
     # start camera threads
     threads = []
     for index, camera in enumerate(cameras):
-        t = threading.Thread(target=open_stream, args=(camera, index))
+        t = threading.Thread(target=open_stream, args=(camera,))
         t.start()
         threads.append(t)
 

@@ -52,44 +52,52 @@ model_info:
     - [0.01155765, 0.00002149, 0.24956096]
   control_inputs: [x,y,z,roll,yaw] #[x,y,z,roll,pitch,yaw] as options. delete, any not available
   thrusters: # all positions/orientations relative to base_link
+      # RUN the thruster_identification_udp code to identify what port each thruster is plugged into.
+      # Steps:
+      # 1. identify the position and orientation of each thruster.
+      # 2. Run thruster_identification_udp in the mur_model launch file without any control code running. This code
+      # will activate each thruster in order, displaying which thruster port is active (0,1,2...). Write down the board_plug_id (matching port)
+      # for each thruster. This will enable automapping when running.
+      # 3. To turn a thruster around (because the thruster is backwards in plug), set flip_esc_command to true
+
       # back motors
       - pos: [0.03348,-0.12683,0] # back left
         orientation: [0, 0, 2.35619] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: true
-        id: 1
+        board_plug_id: 1
         esc: 'bluerobotics'
       - pos: [0.03348,0.12683,0] # back right
         orientation: [0, 0, 3.92699] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: false
-        id: 4
+        board_plug_id: 4
         esc: 'bluerobotics'
       # mid motors
       - pos: [0.253,-0.128,-0.015] # mid left
         orientation: [0, 1.5708, 0] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: false
-        id: 0
+        board_plug_id: 2
         esc: 'bluerobotics'
       - pos: [0.253,0.128,-0.015] # mid right
         orientation: [0, 1.5708, 0] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: false
-        id: 2
+        board_plug_id: 0
         esc: 'bluerobotics'
       # front motors
       - pos: [0.47252,-0.12683,-0.001] # front left
         orientation: [0, 0, 0.785398] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: false
-        id: 5
+        board_plug_id: 5
         esc: 'bluerobotics'
       - pos: [0.47252,0.12683,-0.001] # front right
         orientation: [0, 0, -0.785398] # radians
         relative_to: 'fossen_base_link'
         flip_esc_command: false
-        id: 3
+        board_plug_id: 3
         esc: 'bluerobotics'
 
   escs:
@@ -101,31 +109,43 @@ model_info:
 
   camera_data:
     seconds_between_camera_boot_requests: 20
+
+    # width: 640 #1280
+    # height: 480 #960
+    # width: 1280
+    # height: 960
+
     cameras:
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_4_1_0"
-        id: "forward"
-        width: 640
-        height: 480
+        id: "radial_left"  
+        width: 1920
+        height: 1440
         fps: 30
         stream_port: 8080
+        flip_horizontal: false
+        flip_vertical: false
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_3_1_0"
-        id: "radial_right"
-        width: 640
-        height: 480
+        id: "forward"
+        width: 1920
+        height: 1440
         fps: 30
         stream_port: 8081
+        flip_horizontal: false
+        flip_vertical: false
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_2_2_1_0"
-        id: "radial_left"                                             # forms tf2 frame
-        width: 640
-        height: 480
+        id: "radial_right"                                            # forms tf2 frame
+        width: 1920
+        height: 1440
         fps: 30
         stream_port: 8082
+        flip_horizontal: true
+        flip_vertical: true
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'

@@ -23,7 +23,7 @@ class ThrusterUDPPublisher:
         # Reorder the thruster commands based on the id indexes
         ordered_thruster_commands = [0] * len(thruster_commands)
         for idx, thruster in enumerate(self.model_info['thrusters']):
-            thruster_id = thruster['id']
+            thruster_id = thruster['board_plug_id']
             thruster_type = thruster['esc']
             thruster_comm_zero_value = round(self.model_info['escs'][thruster_type]['zero_value'], 3)
             ordered_thruster_commands[thruster_id] = round(thruster_commands[thruster_id], 3)
@@ -51,8 +51,9 @@ if __name__ == "__main__":
         time.sleep(5)
         modules = reload_module_info()
         battery_fuselage_module_info = [module for module in modules if module["name"] == "mur_battery_fuselage"][0]
+        if not isinstance(battery_fuselage_module_info, dict):
+            battery_fuselage_module_info = {}
         
-    
     udp_ip = battery_fuselage_module_info["ipaddress"]
     udp_port = battery_fuselage_module_info["ports"]["comm"]
 

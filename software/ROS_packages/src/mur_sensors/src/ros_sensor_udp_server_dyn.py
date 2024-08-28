@@ -66,8 +66,8 @@ def udp_server_listener_and_distributor():
             are_thrusters_working = dataJson.pop('isThrust', True)
 
             if not are_thrusters_working:
-                print("THRUSTERS FAILED, PLEASE REBOOT...")
-                raise ValueError("THRUSTERS FAILED, PLEASE REBOOT...")
+                print("THRUSTERS NOT CONNECTED...")
+                raise ValueError("THRUSTERS NOT CONNECTED...")
 
             if not hasBooted:
                 hasBooted = True

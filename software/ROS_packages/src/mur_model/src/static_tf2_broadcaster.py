@@ -27,7 +27,7 @@ def create_static_transform_msgs(device_list, base_string=None):
     for device in device_list:
         pos = device['pos']
         orientation = device['orientation']
-        id_of_device = device['id']
+        id_of_device = device['id'] if 'id' in device.keys() else device['board_plug_id']
         tf2_relative_to = device['relative_to']
         if base_string is None and 'name' not in device.keys():
             raise ValueError("Please use base_string or name in static tf2 broadcaster.")
@@ -49,20 +49,20 @@ def broadcast_static_transforms():
 
     rospy.loginfo("Broadcasting static transforms")
 
-    # # add general static tf2 links
-    # for tf2_link in model_info['static_tf2_links']:
-    #     tf2_name = tf2_link['name']
-    #     tf2_pos = tf2_link['pos']
-    #     tf2_orientation = tf2_link['orientation']
-    #     tf2_relative_to = tf2_link['relative_to']
-    #     rospy.loginfo(f"Static transform: {tf2_relative_to} -> {tf2_name}")
-    #     tf2_msg = create_transform_msg(tf2_relative_to, tf2_name, tf2_pos, tf2_orientation)
-    #     static_transforms.append(tf2_msg)
-
     # add general static tf2 links
-    device_list = model_info['static_tf2_links']
-    new_static_transforms = create_static_transform_msgs(device_list)
-    static_transforms.extend(new_static_transforms)
+    for tf2_link in model_info['static_tf2_links']:
+        tf2_name = tf2_link['name']
+        tf2_pos = tf2_link['pos']
+        tf2_orientation = tf2_link['orientation']
+        tf2_relative_to = tf2_link['relative_to']
+        rospy.loginfo(f"Static transform: {tf2_relative_to} -> {tf2_name}")
+        tf2_msg = create_transform_msg(tf2_relative_to, tf2_name, tf2_pos, tf2_orientation)
+        static_transforms.append(tf2_msg)
+
+    # # add general static tf2 links
+    # device_list = model_info['static_tf2_links']
+    # new_static_transforms = create_static_transform_msgs(device_list)
+    # static_transforms.extend(new_static_transforms)
 
     # add thrusters to static broadcast
     base_string = 'thruster'
@@ -87,10 +87,20 @@ def broadcast_static_transforms():
             t_msg = create_transform_msg('fossen_base_link', frame_id, pos, orientation)
             static_transforms.append(t_msg)
 
-    # add dynamic links to static broadcast
-    device_list = model_info['dynamic_tf2_links']
-    new_static_transforms = create_static_transform_msgs(device_list)
-    static_transforms.extend(new_static_transforms)
+    # # add dynamic links to static broadcast
+    # device_list = model_info['dynamic_tf2_links']
+    # new_static_transforms = create_static_transform_msgs(device_list)
+    # static_transforms.extend(new_static_transforms)
+
+    # add dynamic static tf2 links
+    for tf2_link in model_info['dynamic_tf2_links']:
+        tf2_name = tf2_link['name']
+        tf2_pos = tf2_link['pos']
+        tf2_orientation = tf2_link['orientation']
+        tf2_relative_to = tf2_link['relative_to']
+        rospy.loginfo(f"Static transform: {tf2_relative_to} -> {tf2_name}")
+        tf2_msg = create_transform_msg(tf2_relative_to, tf2_name, tf2_pos, tf2_orientation)
+        static_transforms.append(tf2_msg)
 
     # Broadcast all static transforms once
     static_broadcaster.sendTransform(static_transforms)

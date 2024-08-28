@@ -23,7 +23,7 @@ def compute_force_thruster_commands(desired_wrench, thrusters):
     
 
     for thruster in thrusters:
-        thruster_id = thruster['id']
+        thruster_id = thruster['board_plug_id']
         thruster_frame = f"thruster_{thruster_id}"
         force_in_thruster_frame.header.frame_id = thruster_frame
 
@@ -54,7 +54,7 @@ def convert_force_to_unit_thruster_commands(force_thruster_commands, model_info)
     unit_thruster_commands = [0]*len(force_thruster_commands)
     for idx, thruster in enumerate(model_info['thrusters']):
         min_force, max_force = model_info['escs'][thruster['esc']]['thrust_force']
-        thruster_id = thruster['id']
+        thruster_id = thruster['board_plug_id']
         unit_value = (force_thruster_commands[thruster_id] - min_force) / (max_force - min_force) * 2 - 1
         unit_thruster_commands[thruster_id] = unit_value
     return unit_thruster_commands
@@ -63,7 +63,7 @@ def convert_unit_to_microseconds_thruster_commands(unit_thruster_commands, model
     # Convert to the PWM signal thruster command using the esc formula
     pwm_thruster_commands = [0]*len(unit_thruster_commands)
     for thruster in model_info['thrusters']:
-        thruster_id = thruster['id']
+        thruster_id = thruster['board_plug_id']
         esc_name = thruster['esc']
         zero_threshold = model_info['escs'][thruster['esc']]['zero_threshold']
         if np.abs(unit_thruster_commands[thruster_id]) < zero_threshold:
