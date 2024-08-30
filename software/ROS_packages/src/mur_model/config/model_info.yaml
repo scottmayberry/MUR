@@ -77,13 +77,13 @@ model_info:
       - pos: [0.253,-0.128,-0.015] # mid left
         orientation: [0, 1.5708, 0] # radians
         relative_to: 'fossen_base_link'
-        flip_esc_command: false
+        flip_esc_command: true
         board_plug_id: 2
         esc: 'bluerobotics'
       - pos: [0.253,0.128,-0.015] # mid right
         orientation: [0, 1.5708, 0] # radians
         relative_to: 'fossen_base_link'
-        flip_esc_command: false
+        flip_esc_command: true
         board_plug_id: 0
         esc: 'bluerobotics'
       # front motors

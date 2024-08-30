@@ -1,9 +1,10 @@
 <launch>
   <rosparam command="load" file="$(find mur_control)/config/control_info.yaml" />
   <group ns="control">
-    <node pkg="mur_control" name="thruster_manual" type="ros_manual_thruster_driver.py" output="screen"/>
+    <!-- <node pkg="mur_control" name="thruster_manual" type="ros_manual_thruster_driver.py" output="screen"/> -->
+    <node pkg="mur_control" name="blended_manual_and_pid" type="blended_manual_and_pid_setpoint_controller.py" output="screen"/>
     <!-- <node pkg="mur_control" name="pid_setpoint_control" type="ros_pid_setpoint_control.py" output="screen"/> -->
-    <!-- <node pkg="mur_control" name="pid_setpoint_generator" type="manual_with_PID_setpoint_generator.py" output="screen"/> -->
+    <!-- <node pkg="mur_control" name="pid_setpoint_generator_w_manual" type="manual_with_PID_setpoint_generator.py" output="screen"/> -->
     <!-- <node pkg="mur_control" name="pid_setpoint_generator" type="ros_pose_setpoint_generator.py" output="screen"/> -->
   </group>
 </launch>

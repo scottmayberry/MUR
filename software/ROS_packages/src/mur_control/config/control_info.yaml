@@ -25,6 +25,13 @@ control_info:
         ki: 0
         kd: 0
       yaw:
-        kp: 1
-        ki: 0.3
+        kp: 0.7
+        ki: 0.15
         kd: 0.2
+    control_mode:
+      x: manual  # Options: manual, pid
+      y: manual  # Options: manual, pid
+      z: pid     # Options: manual, pid
+      roll: pid  # Options: manual, pid
+      pitch: pid # Options: manual, pid
+      yaw: pid   # Options: manual, pid
