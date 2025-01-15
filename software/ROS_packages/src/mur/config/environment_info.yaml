@@ -1,12 +1,22 @@
 ---
+# environment_info.yaml
+# Configuration file for defining environmental parameters relevant to the Miniature Underwater Robot (MUR).
+# This includes properties of the working fluid and gravitational constant, which are essential for
+# accurate simulation, control, and sensor data interpretation.
+
 environment_info:
   working_fluid:
+    # Define the type and density of the fluid in which the robot operates.
+    # Uncomment the desired fluid type and its corresponding density.
+    
     # type: "seawater"
-    # density: 1025 #kg/m^3
-    type: "freshwater"
-    density: 997 #kg/m^3
+    # density: 1025 # kg/m^3
+    
+    type: "freshwater"       # Currently active fluid type.
+    density: 997 # kg/m^3    # Density of the active fluid in kilograms per cubic meter.
+    
     # type: "air_20C"
-    # density: 1.204 #kg/m^3
-  gravity_constant: 9.80665
-
-  
+    # density: 1.204 # kg/m^3
+    
+  gravity_constant: 9.80665 # m/s^2
+    # The acceleration due to gravity, used for calculations involving buoyancy, force, and motion dynamics.

@@ -1,37 +1,54 @@
 ---
+# control_info.yaml
+# Configuration parameters for the Miniature Underwater Robot (MUR) control modules.
+# This file defines settings for manual thruster updates, stabilization control loops,
+# PID controller gains, and control modes for each degree of freedom (DOF).
+
 control_info:
+  # Frequency (Hz) at which manual thruster commands are updated.
   manual_thruster_update_hz: 20
+
   stabilization:
+    # Control loop rate in Hz.
     rate: 25
+
     gains:
+      # PID gains
       x:
-        kp: 0
-        ki: 0
-        kd: 0
+        kp: 0      # Proportional gain
+        ki: 0      # Integral gain
+        kd: 0      # Derivative gain
+
       y:
-        kp: 0
-        ki: 0
-        kd: 0
+        kp: 0      # Proportional gain
+        ki: 0      # Integral gain
+        kd: 0      # Derivative gain
+
       z:
-        kp: 10
-        ki: 0
-        kd: 0.2
+        kp: 10     # Proportional gain
+        ki: 0      # Integral gain
+        kd: 0.2    # Derivative gain
+
       roll:
-        kp: 0
-        ki: 0
-        kd: 0
+        kp: 0      # Proportional gain
+        ki: 0      # Integral gain
+        kd: 0      # Derivative gain
+
       pitch:
-        kp: 0
-        ki: 0
-        kd: 0
+        kp: 0      # Proportional gain
+        ki: 0      # Integral gain
+        kd: 0      # Derivative gain
+
       yaw:
-        kp: 0.7
-        ki: 0.15
-        kd: 0.2
+        kp: 0.7    # Proportional gain
+        ki: 0.15   # Integral gain
+        kd: 0.2    # Derivative gain
+
     control_mode:
-      x: manual  # Options: manual, pid
-      y: manual  # Options: manual, pid
-      z: pid     # Options: manual, pid
-      roll: pid  # Options: manual, pid
-      pitch: pid # Options: manual, pid
-      yaw: pid   # Options: manual, pid
+      # Control mode. Options: manual, pid
+      x: manual  
+      y: manual  
+      z: pid     
+      roll: pid  
+      pitch: pid
+      yaw: pid   

@@ -1,23 +1,35 @@
+# Configuration file for MUR Sensors Package
+# This file defines the communication settings, sensor fusion parameters, and individual sensor configurations
+# for the Miniature Underwater Robot (MUR).
 ---
 sensor_info:
-  comm_port: 51585
-  broadcast_port: 51584
-  server_id_message: "server"
+  # Communication ports for sensor data transmission and reception
+  comm_port: 51585          # Port used for general communication with sensors
+  broadcast_port: 51584     # Port used for broadcasting messages to multiple recipients
+
+  # Server identification message for establishing connections
+  server_id_message: "server"  # Identifier message to recognize the server in the network
+
   server_ping_info:
-    seconds_between_pings: 3
-    server_id_message: "server"
-    transmit_port: 8888
+    # Settings related to server pinging to ensure active connections
+    seconds_between_pings: 3   # Interval in seconds between consecutive pings to the server
+    server_id_message: "server"  # Identifier message used during pinging
+    transmit_port: 8888         # Port used to transmit ping messages to the server
+
   sensor_udp_receive_info:
-    receive_port: 8888
+    # Configuration for receiving UDP packets from sensors
+    receive_port: 8888  # Port on which the system listens for incoming UDP sensor data
 
   imu_sensor_fusion:
+    # Configuration for Inertial Measurement Unit (IMU) sensor fusion
     - accelerometer: MPU6500
-      accelerometer_module: 'mur_battery_fuselage'
+      accelerometer_module: 'mur_battery_fuselage'  # Module housing the accelerometer
       gyroscope: MPU6500
-      gyroscope_module: 'mur_battery_fuselage'
+      gyroscope_module: 'mur_battery_fuselage'      # Module housing the gyroscope
       magnetometer: LIS2MDL
-      magnetometer_module: 'mur_battery_fuselage'
-      sample_rate: 50
+      magnetometer_module: 'mur_battery_fuselage'   # Module housing the magnetometer
+      sample_rate: 50                                # Sampling rate in Hz for sensor data
+
     - accelerometer: KXTJ3
       accelerometer_module: 'mur_battery_fuselage'
       gyroscope: LSM6DS3
@@ -25,6 +37,7 @@ sensor_info:
       magnetometer: LIS2MDL
       magnetometer_module: 'mur_battery_fuselage'
       sample_rate: 20
+
     - accelerometer: MPU6500
       accelerometer_module: 'mur_compute_sensors'
       gyroscope: MPU6500
@@ -33,125 +46,152 @@ sensor_info:
       magnetometer_module: 'mur_compute_sensors'
       sample_rate: 20
 
-
   sensors:
-  #orientations, pose relative to base_link (back of mur center tube)
+    # Definitions for each sensor type, including their topics, data types, and physical placements
+
+    # Configuration for MPU6500 IMU sensors
     MPU6500:
-      topic: 'MPU6500'
-      type: Twist
+      topic: 'MPU6500'     # ROS topic name for MPU6500 data
+      type: Twist          # Data type published on the topic
       instances:
-        - pos: [0.2401004, 0.0086149, -0.0126]
-          orientation: [3.141593, 0, -3.141593]
-          module: 'mur_battery_fuselage' #used to link ip address
-          queue: 2
+        - pos: [0.2401004, 0.0086149, -0.0126]  # Position of the sensor relative to base_link
+          orientation: [3.141593, 0, -3.141593] # Orientation (roll, pitch, yaw) in radians
+          module: 'mur_battery_fuselage'        # Module identifier for network linkage
+          queue: 2                              # Message queue size for ROS topic
+
         - pos: [0.4873774, 0.0242571, 0.0297765]
           orientation: [1.570796, 0, 1.570796]
-          module: 'mur_compute_sensors' #used to link ip address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for LSM6DS3 IMU sensors
     LSM6DS3:
       topic: 'LSM6DS3'
       type: Twist
       instances:
         - pos: [0.2341314, 0.0106469, -0.0126]
-          orientation:  [3.141593, 0, 1.570796]
-          module: 'mur_battery_fuselage' #used to link ip address
+          orientation: [3.141593, 0, 1.570796]
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4873774, 0.0368302, 0.0293955]
           orientation: [1.570796, 0, 1.570796]
-          module: 'mur_compute_sensors' #used to link ip address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for KXTJ3 accelerometer sensors
     KXTJ3:
       topic: 'KXTJ3'
       type: Vector3
       instances:
         - pos: [0.2299404, 0.0125519, -0.0126]
           orientation: [3.141593, 0, 1.570796]
-          module: 'mur_battery_fuselage' #used to link ip address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4873774, 0.0330202, 0.0348565]
           orientation: [0, 1.570796, 0]
-          module: 'mur_compute_sensors' #used to link ip address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for BNO055 IMU sensors
     BNO055:
       topic: 'BNO055'
       type: Imu
       instances:
         - pos: [0.2400982, -0.0029786, -0.0242]
           orientation: [3.141593, 0, 1.570796]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.5043774, -0.0086167, 0.0290098]
-          orientation: [1.570796, 0, -1.570796] # [1.570796, -1.570796, -1.570796]
-          module: 'mur_compute_sensors' #used to link IP address
+          orientation: [1.570796, 0, -1.570796]  # Note: Alternative orientation commented out below
+          # orientation: [1.570796, -1.570796, -1.570796]
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for LIS2MDL magnetometer sensors
     LIS2MDL:
       topic: 'LIS2MDL'
       type: Vector3
       instances:
         - pos: [0.2274004, 0.0164889, -0.0126]
           orientation: [0, 0, 1.570796]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4873774, 0.0296546, 0.0268555]
           orientation: [1.570796, 3.141593, -1.570796]
-          module: 'mur_compute_sensors' #used to link IP address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for AHT20 temperature and humidity sensors
     AHT20: 
       topic: 'AHT20'
       type: Float32
       instances:
         - pos: [0.2419030, 0.0009188, -0.0126]
           orientation: [0, 0, 0]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4909774, 0.0091441, 0.0313005]
           orientation: [0, 0, 0]
-          module: 'mur_compute_sensors' #used to link IP address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for DPS310 pressure sensors
     DPS310:
       topic: 'DPS310'
       type: Float32
       instances:
         - pos: [0.2483554, 0.0086150, -0.0126]
           orientation: [0, 0, 0]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4909774, 0.0156210, 0.0296496]
           orientation: [0, 0, 0]
-          module: 'mur_compute_sensors' #used to link IP address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for HSCDTD humidity sensors
     HSCDTD:
       topic: 'HSCDTD'
       type: Vector3
       instances:
         - pos: [0.2460694, 0.0015030, -0.0126]
           orientation: [3.141593, 0, 0]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
+
         - pos: [0.4873774, 0.0278131, 0.0330785]
           orientation: [3.141593, -1.570796, 0]
-          module: 'mur_compute_sensors' #used to link IP address
+          module: 'mur_compute_sensors'
           queue: 2
+
+    # Configuration for MS5837 fluid pressure sensors
     MS5837: # MS5837_02BA
       topic: 'MS5837'
       type: FluidPressure
       instances:
         - pos: [-0.03035, 0, 0.033]
           orientation: [0, 0, 0]
-          module: 'mur_battery_fuselage' #used to link IP address
+          module: 'mur_battery_fuselage'
           queue: 2
       metadata:
-        - zero_z_depth_pressure: 1005.1599731445312
+        zero_z_depth_pressure: 1005.1599731445312  # Reference pressure at zero depth for calibration
 
+    # GPS Sensor Configuration (Currently Commented Out)
     # GPS: 
     #   topic: 'GPS'
     #   type: Twist
     #   instances:
     #     - pos: [0.2419030, 0.0009188, -0.0126]
     #       orientation: [0, 0, 0]
-    #       module: 'mur_battery_fuselage' #used to link IP address
+    #       module: 'mur_battery_fuselage' # used to link IP address
     #       queue: 2
     #     - pos: [0.4909774, 0.0091441, 0.0313005]
     #       orientation: [0, 0, 0]
-    #       module: 'mur_compute_sensors' #used to link IP address
+    #       module: 'mur_compute_sensors' # used to link IP address
     #       queue: 2

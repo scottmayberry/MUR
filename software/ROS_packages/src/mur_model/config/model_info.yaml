@@ -1,135 +1,193 @@
+# ==============================================================================
+# model_info.yaml
+#
+# Author: Scott Mayberry
+# Date: 2025-01-10
+#
+# Description:
+#   This YAML configuration file defines the structural, physical, and operational
+#   parameters of the Miniature Underwater Robot (MUR). It includes details about
+#   coordinate frames, physical properties such as mass and inertia, control inputs,
+#   thruster configurations, Electronic Speed Controllers (ESCs), and camera setups.
+#   The file is used by various ROS nodes to initialize and manage the robot's state
+#   and sensor data.
+#
+# Structure:
+#   - ref_origin_description: Description of the reference origin for the robot.
+#   - tf2_update_rate: Frequency (in Hz) at which TF2 transforms are updated.
+#   - static_tf2_links: List of static coordinate frames that do not change during operation.
+#   - dynamic_tf2_links: List of dynamic coordinate frames that can change during operation.
+#   - mass: Mass of the robot in kilograms.
+#   - inertia: Inertia tensor of the robot represented as a 3x3 matrix.
+#   - control_inputs: Available control inputs for the robot's movement and orientation.
+#   - thrusters: Configuration details for each thruster, including position, orientation,
+#                ESC settings, and board plug IDs.
+#   - escs: Configuration details for different types of Electronic Speed Controllers.
+#   - camera_data: Configuration details for the robot's cameras, including boot request intervals
+#                  and individual camera settings.
+#
+# Usage:
+#   This file should be placed in the ROS parameter server under the `/model_info` namespace.
+#   ROS nodes responsible for handling transformations, thruster control, and camera streaming
+#   will reference this file to obtain necessary configuration parameters.
+#
+# Dependencies:
+#   - ROS (Robot Operating System)
+#   - TF2 for coordinate transformations
+#   - OpenCV for camera image processing
+#
+# License:
+#   MIT License
+# ==============================================================================
 ---
 model_info:
+  # Description of the reference origin for the robot
   ref_origin_description: "back of sub, centered in tube"
+
+  # Rate at which TF2 transforms are updated (in Hz)
   tf2_update_rate: 10
 
+  # Static TF2 links: these frames do not change during operation
   static_tf2_links:
-    - name: 'map'
-      pos: [0,0,0]
-      orientation: [0, 0, 0]
-      relative_to: 'world'
+    - name: 'map'  # Name of the frame
+      pos: [0,0,0]  # Position [x, y, z] relative to the parent frame
+      orientation: [0, 0, 0]  # Orientation [roll, pitch, yaw] in radians relative to the parent frame
+      relative_to: 'world'  # Parent frame to which this frame is relative
+
     - name: 'fossen_world'
       pos: [0,0,0]
       orientation: [3.14159, 0, 1.57079632679]
       relative_to: 'world'
+
     - name: 'com'
       pos: [0.28109, -0.00002, 0.01191]
       orientation: [3.14159, 0, 1.57079632679]
       relative_to: 'fossen_base_link'
+
     - name: 'fossen_com'
       pos: [0.28109, -0.00002, 0.01191]
       orientation: [0, 0, 0]
       relative_to: 'fossen_base_link'
+
     - name: 'cob'
-      pos: [0.28109, 0, 0] 
+      pos: [0.28109, 0, 0]
       orientation: [3.14159, 0, 1.57079632679]
       relative_to: 'fossen_base_link'
+
     - name: 'base_link_non_fossen'
       pos: [0,0,0]
       orientation: [3.14159, 0, 0]
       relative_to: 'fossen_base_link'
 
+  # Dynamic TF2 links: these frames can change during operation
   dynamic_tf2_links:
-    - name: 'fossen_base_link'
-      pos: [0,0,0]
-      orientation: [3.14159, 0, 1.57079632679]
-      relative_to: 'world'
+    - name: 'fossen_base_link'  # Name of the dynamic frame
+      pos: [0,0,0]  # Initial position [x, y, z] relative to the parent frame
+      orientation: [3.14159, 0, 1.57079632679]  # Initial orientation [roll, pitch, yaw] in radians
+      relative_to: 'world'  # Parent frame to which this frame is relative
 
+  # Physical properties of the robot
+  mass: 6.174 # kg  # Mass of the robot in kilograms
 
-  # base_link: #relative to world frame
-  #   pos: [0,0,0]
-  #   orientation: [3.14159, 0, 0]
-  # com: #relative to baselink
-  #   pos: [0.28109, -0.00002, 0.01191]
-  #   orientation: [0, 0, 0]
-  # cob:  # x,y,z in meters
-  #   pos: [0.28109, 0, 0] 
-  #   orientation: [0, 0, 0]
-  mass: 6.174 # kg
+  # Inertia tensor of the robot (3x3 matrix)
   inertia: 
     - [0.05239535, 0.00009810, 0.01155765]
     - [0.00009810, 0.22440414, 0.00002149]
     - [0.01155765, 0.00002149, 0.24956096]
-  control_inputs: [x,y,z,roll,yaw] #[x,y,z,roll,pitch,yaw] as options. delete, any not available
-  thrusters: # all positions/orientations relative to base_link
-      # RUN the thruster_identification_udp code to identify what port each thruster is plugged into.
-      # Steps:
-      # 1. identify the position and orientation of each thruster.
-      # 2. Run thruster_identification_udp in the mur_model launch file without any control code running. This code
-      # will activate each thruster in order, displaying which thruster port is active (0,1,2...). Write down the board_plug_id (matching port)
-      # for each thruster. This will enable automapping when running.
-      # 3. To turn a thruster around (because the thruster is backwards in plug), set flip_esc_command to true
 
-      # back motors
-      - pos: [0.03348,-0.12683,0] # back left
-        orientation: [0, 0, 2.35619] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: true
-        board_plug_id: 1
-        esc: 'bluerobotics'
-      - pos: [0.03348,0.12683,0] # back right
-        orientation: [0, 0, 3.92699] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: false
-        board_plug_id: 4
-        esc: 'bluerobotics'
-      # mid motors
-      - pos: [0.253,-0.128,-0.015] # mid left
-        orientation: [0, 1.5708, 0] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: true
-        board_plug_id: 2
-        esc: 'bluerobotics'
-      - pos: [0.253,0.128,-0.015] # mid right
-        orientation: [0, 1.5708, 0] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: true
-        board_plug_id: 0
-        esc: 'bluerobotics'
-      # front motors
-      - pos: [0.47252,-0.12683,-0.001] # front left
-        orientation: [0, 0, 0.785398] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: false
-        board_plug_id: 5
-        esc: 'bluerobotics'
-      - pos: [0.47252,0.12683,-0.001] # front right
-        orientation: [0, 0, -0.785398] # radians
-        relative_to: 'fossen_base_link'
-        flip_esc_command: false
-        board_plug_id: 3
-        esc: 'bluerobotics'
+  # Control inputs available for the robot's movement and orientation
+  control_inputs: [x,y,z,roll,yaw] # Available control inputs: x, y, z (translation) and roll, yaw (rotation). Options include [x,y,z,roll,pitch,yaw]. Delete any not available.
 
+  # Configuration of thrusters: positions and orientations are relative to 'fossen_base_link'
+  thrusters:
+    # Instructions for identifying thruster ports using thruster_identification_udp
+    # RUN the thruster_identification_udp code to identify what port each thruster is plugged into.
+    # Steps:
+    # 1. Identify the position and orientation of each thruster.
+    # 2. Run thruster_identification_udp in the mur_model launch file without any control code running. This code
+    #    will activate each thruster in order, displaying which thruster port is active (0,1,2...). Write down the board_plug_id (matching port)
+    #    for each thruster. This will enable automapping when running.
+    # 3. To turn a thruster around (because the thruster is backwards in plug), set flip_esc_command to true
+
+    # Back motors
+    - pos: [0.03348,-0.12683,0]  # Position [x, y, z] of the back left thruster relative to 'fossen_base_link'
+      orientation: [0, 0, 2.35619]  # Orientation [roll, pitch, yaw] in radians
+      relative_to: 'fossen_base_link'  # Parent frame
+      flip_esc_command: true  # Flag to flip the ESC command if thruster is mounted backwards
+      board_plug_id: 1  # Identifier for the thruster's plug on the board
+      esc: 'bluerobotics'  # Type of Electronic Speed Controller used
+
+    - pos: [0.03348,0.12683,0]  # Position of the back right thruster
+      orientation: [0, 0, 3.92699]
+      relative_to: 'fossen_base_link'
+      flip_esc_command: false
+      board_plug_id: 4
+      esc: 'bluerobotics'
+
+    # Mid motors
+    - pos: [0.253,-0.128,-0.015]  # Position of the mid left thruster
+      orientation: [0, 1.5708, 0]
+      relative_to: 'fossen_base_link'
+      flip_esc_command: true
+      board_plug_id: 2
+      esc: 'bluerobotics'
+
+    - pos: [0.253,0.128,-0.015]  # Position of the mid right thruster
+      orientation: [0, 1.5708, 0]
+      relative_to: 'fossen_base_link'
+      flip_esc_command: true
+      board_plug_id: 0
+      esc: 'bluerobotics'
+
+    # Front motors
+    - pos: [0.47252,-0.12683,-0.001]  # Position of the front left thruster
+      orientation: [0, 0, 0.785398]
+      relative_to: 'fossen_base_link'
+      flip_esc_command: false
+      board_plug_id: 5
+      esc: 'bluerobotics'
+
+    - pos: [0.47252,0.12683,-0.001]  # Position of the front right thruster
+      orientation: [0, 0, -0.785398]
+      relative_to: 'fossen_base_link'
+      flip_esc_command: false
+      board_plug_id: 3
+      esc: 'bluerobotics'
+
+  # Electronic Speed Controllers (ESC) configurations
   escs:
-    bluerobotics: # combination of blueESC and t200
-      zero_threshold: 0.005
-      zero_value: 1500
-      thrust_force: [-39.91307, 39.91307]
-      formula: "Piecewise((1500, Abs(x) < 0.02), (round(-10.8*(3.5*Abs(x))**2 + (3.5*Abs(x))*119.5 + 1540), x > 0), (round(11.31*(3.5*Abs(x))**2 + (3.5*Abs(x))*-137.4 + 1456), x <= 0))"
+    bluerobotics:  # Configuration for bluerobotics ESCs, a combination of blueESC and t200
+      zero_threshold: 0.005  # Threshold for zero throttle
+      zero_value: 1500  # ESC command value corresponding to zero throttle
+      thrust_force: [-39.91307, 39.91307]  # Thrust force range in newtons
+      formula: "Piecewise((1500, Abs(x) < 0.02), (round(-10.8*(3.5*Abs(x))**2 + (3.5*Abs(x))*119.5 + 1540), x > 0), (round(11.31*(3.5*Abs(x))**2 + (3.5*Abs(x))*-137.4 + 1456), x <= 0))"  # Mathematical formula for ESC command based on input
 
+  # Camera configurations
   camera_data:
-    seconds_between_camera_boot_requests: 20
+    seconds_between_camera_boot_requests: 20  # Interval in seconds between camera boot requests
 
+    # The following lines are commented out settings for camera resolution
     # width: 640 #1280
     # height: 480 #960
     # width: 1280
     # height: 960
 
     cameras:
-      - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_4_1_0"
-        id: "radial_left"  
-        width: 1920
-        height: 1440
-        fps: 30
-        stream_port: 8080
-        flip_horizontal: false
-        flip_vertical: false
-        pos: [0,0,0]
-        orientation: [0,0,0]
-        relative_to: 'fossen_base_link'
-        # optional values
-        autofocus: false
-        focus_absolute: 200 # only applied if autofocus is off
+      - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_4_1_0"  # Unique identifier path for the camera
+        id: "radial_left"  # Logical identifier for the camera
+        width: 1920  # Image width in pixels
+        height: 1440  # Image height in pixels
+        fps: 30  # Frames per second for the camera
+        stream_port: 8080  # UDP port for streaming video
+        flip_horizontal: false  # Flag to flip the image horizontally
+        flip_vertical: false  # Flag to flip the image vertically
+        pos: [0,0,0]  # Position [x, y, z] relative to the parent frame
+        orientation: [0,0,0]  # Orientation [roll, pitch, yaw] in radians relative to the parent frame
+        relative_to: 'fossen_base_link'  # Parent frame to which this camera is relative
+        # Optional camera settings
+        autofocus: false  # Flag to enable or disable autofocus
+        focus_absolute: 200 # only applied if autofocus is off  # Absolute focus value if autofocus is disabled
+
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_3_1_0"
         id: "forward"
         width: 1920
@@ -141,11 +199,12 @@ model_info:
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
-        # optional values
+        # Optional camera settings
         autofocus: false
         focus_absolute: 200 # only applied if autofocus is off
+
       - id_path_tag: "platform-fe9c0000_xhci-usb-0_1_2_2_1_0"
-        id: "radial_right"                                            # forms tf2 frame
+        id: "radial_right"  # Forms TF2 frame
         width: 1920
         height: 1440
         fps: 30
@@ -155,6 +214,6 @@ model_info:
         pos: [0,0,0]
         orientation: [0,0,0]
         relative_to: 'fossen_base_link'
-        # optional values
+        # Optional camera settings
         autofocus: false
         focus_absolute: 200 # only applied if autofocus is off

@@ -1,4 +1,36 @@
 #!/usr/bin/env python
+"""
+ros_sensor_udp_auto_network.py
+
+Author: Scott Mayberry
+Date: 2025-01-10
+Description:
+    This script handles the automatic network configuration for the Miniature Underwater Robot (MUR).
+    It listens for UDP broadcast messages from other modules requesting IP address assignments and
+    communication port configurations. Upon receiving a valid request, it updates the module information
+    with the new IP address and communication port, and sends a response back to the requesting module.
+    
+    The script ensures that each module on the network has a unique IP address and communication port,
+    facilitating seamless communication between different components of the MUR system.
+
+Usage:
+    Ensure that the ROS master is running and the necessary parameters are set before executing
+    this script. It initializes a ROS node, sets up a UDP socket to listen for broadcast messages,
+    processes incoming requests to update network configurations, and responds accordingly.
+
+Dependencies:
+    - rospy
+    - std_msgs.msg (Float32, String)
+    - geometry_msgs.msg (Twist, Vector3)
+    - sensor_msgs.msg (Imu)
+    - socket
+    - json
+    - time
+
+License:
+    MIT License
+"""
+
 import socket
 import time
 import rospy
@@ -8,6 +40,12 @@ from geometry_msgs.msg import *
 from sensor_msgs.msg import *
 
 def get_ip_address():
+    """
+    Retrieves the IP address of the current machine.
+
+    Returns:
+        str: The IP address of the machine. If unable to determine, returns an error message.
+    """
     try:
         # Get the hostname of the machine
         hostname = socket.gethostname()
@@ -21,10 +59,30 @@ def get_ip_address():
     return ip_address
 
 def normalize_mac(mac):
+    """
+    Normalizes a MAC address by removing delimiters and converting to lowercase.
+
+    Args:
+        mac (str): The MAC address to normalize.
+
+    Returns:
+        str: The normalized MAC address.
+    """
     # Remove any delimiters (":" or "-") and convert to lowercase
     return mac.replace(":", "").replace("-", "").lower()
 
 def update_ip_address(modules, mac_address, new_ip):
+    """
+    Updates the IP address of a module based on its MAC address.
+
+    Args:
+        modules (list): List of module dictionaries containing module information.
+        mac_address (str): The MAC address of the module to update.
+        new_ip (str): The new IP address to assign to the module.
+
+    Returns:
+        dict or None: The updated module dictionary if found and updated, else None.
+    """
     # Normalize the MAC address for comparison
     normalized_mac = normalize_mac(mac_address)
     for module in modules:
@@ -43,6 +101,17 @@ def update_ip_address(modules, mac_address, new_ip):
     return None
 
 def update_comm_port(modules, mac_address, new_comm_port):
+    """
+    Updates the communication port of a module based on its MAC address.
+
+    Args:
+        modules (list): List of module dictionaries containing module information.
+        mac_address (str): The MAC address of the module to update.
+        new_comm_port (int): The new communication port to assign to the module.
+
+    Returns:
+        dict or None: The updated module dictionary if found and updated, else None.
+    """
     # Normalize the MAC address for comparison
     normalized_mac = normalize_mac(mac_address)
     for module in modules:
@@ -61,20 +130,38 @@ def update_comm_port(modules, mac_address, new_comm_port):
     return None
 
 def send_response(ip_address, comm_port, server_id_message):
+    """
+    Sends a response message to a specified IP address and communication port.
+
+    Args:
+        ip_address (str): The IP address to send the response to.
+        comm_port (int): The communication port to send the response to.
+        server_id_message (str): The server identification message to send.
+    """
     # Encode the server ID message and send it to the specified IP address and comm port
     message = server_id_message.encode('utf-8')
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(message, (ip_address, comm_port))
     # print(f"Sent response to {ip_address}:{comm_port}")
 
 def udp_server_receive_broadcast(modules, broadcast_port, server_id_message, my_ip_address):
+    """
+    Listens for UDP broadcast messages requesting IP address and communication port updates,
+    processes the requests, updates module information, and sends responses.
+
+    Args:
+        modules (list): List of module dictionaries containing module information.
+        broadcast_port (int): The port on which to listen for broadcast messages.
+        server_id_message (str): The server identification message to send in responses.
+        my_ip_address (str): The IP address of the server to compare with incoming requests.
+    """
     # Initialize the ROS node
     rospy.init_node('udp_auto_network', anonymous=True)
 
     UDP_IP = ''
     UDP_PORT_IN = broadcast_port
     # Create a UDP socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind((UDP_IP, UDP_PORT_IN))
     sock.settimeout(0.005)
@@ -84,8 +171,9 @@ def udp_server_receive_broadcast(modules, broadcast_port, server_id_message, my_
         time.sleep(0.2)
         try:
             # Receive data from the socket
-            data, addr = sock.recvfrom(2048) # buffer size is 2048 bytes
+            data, addr = sock.recvfrom(2048)  # buffer size is 2048 bytes
         except:
+            # Continue if no data is received within the timeout
             continue
 
         try:
@@ -93,6 +181,7 @@ def udp_server_receive_broadcast(modules, broadcast_port, server_id_message, my_
             datastring = data.decode('utf8')
             dataJson = json.loads(datastring)
             if "serverRequestForIP" not in dataJson:
+                # Ignore messages that are not server IP requests
                 continue
 
             # print(dataJson)
@@ -129,6 +218,13 @@ def udp_server_receive_broadcast(modules, broadcast_port, server_id_message, my_
             continue
 
 if __name__ == "__main__":
+    """
+    Entry point for the UDP auto network script.
+
+    Retrieves necessary parameters from the ROS parameter server, obtains the server's IP address,
+    filters modules with MAC addresses, and starts listening for UDP broadcast messages to
+    automatically configure network settings.
+    """
     # Get the parameters from the ROS parameter server
     broadcast_port = int(rospy.get_param("/sensor_info/broadcast_port"))
     my_ip_address = get_ip_address()
@@ -140,4 +236,5 @@ if __name__ == "__main__":
         # Start the UDP server to receive broadcasts
         udp_server_receive_broadcast(modules, broadcast_port, server_id_message, my_ip_address)
     except rospy.ROSInterruptException:
+        # Handle ROS interrupt exceptions gracefully
         pass

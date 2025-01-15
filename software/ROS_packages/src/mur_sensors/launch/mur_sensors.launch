@@ -4,6 +4,5 @@
     <node pkg="mur_sensors" name="sensors_receive_server" type="ros_sensor_udp_server_dyn.py" output="screen"/>
     <node pkg="mur_sensors" name="imu_fusion" type="ros_imu_sensor_fusion_dyn.py" output="screen"/>
     <node pkg="mur_sensors" name="sensors_auto_network" type="ros_sensor_udp_auto_network.py" output="screen"/>
-    <!-- <node pkg="mur_sensors" name="pressure_to_depth" type="pressure_to_depth.py" output="screen"/> -->
   </group>
 </launch>

@@ -1,20 +1,28 @@
 ---
+# global_config.yaml
+# Configuration file for defining module information and communication parameters for the MUR system.
+# This includes module names, MAC addresses, and communication ports necessary for networked operations.
+
 module_info:
-  hasBooted: false # upon sensor communication, sets hasBooted
+  hasBooted: false # Indicates whether the system has completed booting. Set to true upon successful sensor communication.
+  
   modules:
-    - name: "mur_battery_fuselage"
-      mac: "2C-58-87-FB-FB-5C"
+    - name: "mur_battery_fuselage" # Module responsible for battery management
+      mac: "2C-58-87-FB-FB-5C" # MAC address for network identification
       ports: 
-        comm: 51585
-    - name: "mur_compute_sensors"
-      mac: "B6-11-0E-D1-DE-BD"
+        comm: 51585 # Communication port number for module
+    
+    - name: "mur_compute_sensors" # Module handling sensor computations
+      mac: "B6-11-0E-D1-DE-BD" # MAC address for network identification
       ports: 
-        comm: 51585
-    - name: "mur_compute_module"
-      mac: "e4:5f:01:c8:cc:72"
+        comm: 51585 # Communication port number for module
+    
+    - name: "mur_compute_module" # Central compute module
+      mac: "e4:5f:01:c8:cc:72" # MAC address for network identification
       ports:
-        general: 8888
-        camera: 5005
+        general: 8888 # General communication port
+        camera: 5005 # Camera-specific communication port
+    
     # - name: "test_comp"
     #   ipaddress: "192.168.1.144"
     #   # mac: "5D-49-0E-E9-C8-02"

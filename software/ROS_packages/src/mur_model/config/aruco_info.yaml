@@ -1,33 +1,93 @@
+# ==============================================================================
+# aruco_info.yaml
+#
+# Author: Scott Mayberry
+# Date: 2025-01-10
+#
+# Description:
+#   This YAML configuration file defines the settings for ArUco marker detection
+#   used in the Miniature Underwater Robot (MUR). It specifies the ArUco dictionary
+#   to be used for marker identification and lists the individual markers (tags)
+#   with their unique IDs, positions, and orientations relative to the robot's
+#   coordinate frames. This information is utilized by ROS nodes to detect ArUco
+#   markers, identify control inputs, and determine the robot's position and
+#   orientation based on marker detections.
+#
+# Structure:
+#   - dictionary: Specifies the ArUco dictionary to be used for marker detection.
+#                 Multiple predefined dictionaries are listed as commented-out options.
+#
+#   - tags: A list of ArUco markers with the following properties:
+#       - id: Unique identifier for the marker.
+#       - pos: Position [x, y, z] of the marker relative to the parent frame.
+#       - orientation: Orientation [roll, pitch, yaw] in radians relative to the parent frame.
+#
+# Usage:
+#   This file should be placed in the ROS parameter server under the `/aruco_info` namespace.
+#   ROS nodes responsible for ArUco marker detection and processing will reference this
+#   configuration to identify markers and determine the robot's position and orientation.
+#
+# Dependencies:
+#   - ROS (Robot Operating System)
+#   - OpenCV for image processing
+#   - ArUco library for marker detection
+#
+# License:
+#   MIT License
+# ==============================================================================
 ---
 aruco_info:
-  # DICT_4X4_50:
+  # The ArUco dictionary to be used for marker detection.
+  # Choose one from the predefined dictionaries listed below by uncommenting the desired option.
+  # Available options include various sizes and complexities of marker dictionaries.
+  
+  # DICT_4X4_50: A dictionary of 4x4 markers with 50 unique IDs.
   # - id: x
   #   pos: [x, x, x]
   #   orientation: [x, x, x]
+  
+  # DICT_4X4_100: A dictionary of 4x4 markers with 100 unique IDs.
+  # DICT_4X4_250: A dictionary of 4x4 markers with 250 unique IDs.
+  # DICT_4X4_1000: A dictionary of 4x4 markers with 1000 unique IDs.
+  
+  # DICT_5X5_50: A dictionary of 5x5 markers with 50 unique IDs.
+  # DICT_5X5_100: A dictionary of 5x5 markers with 100 unique IDs.
+  # DICT_5X5_250: A dictionary of 5x5 markers with 250 unique IDs.
+  # DICT_5X5_1000: A dictionary of 5x5 markers with 1000 unique IDs.
+  
+  # DICT_6X6_50: A dictionary of 6x6 markers with 50 unique IDs.
+  # DICT_6X6_100: A dictionary of 6x6 markers with 100 unique IDs.
+  # DICT_6X6_250: A dictionary of 6x6 markers with 250 unique IDs.
+  # DICT_6X6_1000: A dictionary of 6x6 markers with 1000 unique IDs.
+  
+  # DICT_7X7_50: A dictionary of 7x7 markers with 50 unique IDs.
+  # DICT_7X7_100: A dictionary of 7x7 markers with 100 unique IDs.
+  # DICT_7X7_250: A dictionary of 7x7 markers with 250 unique IDs.
+  # DICT_7X7_1000: A dictionary of 7x7 markers with 1000 unique IDs.
+  
+  # DICT_ARUCO_ORIGINAL: The original ArUco marker dictionary.
+  # DICT_APRILTAG_16h5: An AprilTag dictionary with 16h5 tags.
+  # DICT_APRILTAG_25h9: An AprilTag dictionary with 25h9 tags.
+  # DICT_APRILTAG_36h10: An AprilTag dictionary with 36h10 tags.
+  # DICT_APRILTAG_36h11: An AprilTag dictionary with 36h11 tags.
+  
   dictionary: 
-  DICT_4X4_50
-  # DICT_4X4_100
-  # DICT_4X4_250
-  # DICT_4X4_1000
-  # DICT_5X5_50
-  # DICT_5X5_100
-  # DICT_5X5_250
-  # DICT_5X5_1000
-  # DICT_6X6_50
-  # DICT_6X6_100
-  # DICT_6X6_250
-  # DICT_6X6_1000
-  # DICT_7X7_50
-  # DICT_7X7_100
-  # DICT_7X7_250
-  # DICT_7X7_1000
-  # DICT_ARUCO_ORIGINAL
-  # DICT_APRILTAG_16h5
-  # DICT_APRILTAG_25h9
-  # DICT_APRILTAG_36h10
-  # DICT_APRILTAG_36h11
-
+  DICT_4X4_50  # Selected ArUco dictionary for marker detection
+  
+  # List of ArUco markers (tags) with their unique IDs, positions, and orientations.
+  # Each marker should have a unique `id` to facilitate identification.
+  # The `pos` defines the marker's position [x, y, z] relative to the parent frame.
+  # The `orientation` defines the marker's orientation [roll, pitch, yaw] in radians relative to the parent frame.
+  
   # tags:
   #   - id: x
   #     pos: [x, x, x]
   #     orientation: [x, x, x]
+  
+  # Example configuration for a single ArUco marker:
+  # tags:
+  #   - id: 1
+  #     pos: [0.5, 0.0, 0.2]
+  #     orientation: [0.0, 0.0, 0.0]
+  
+  # Currently, no active tags are defined. To enable markers, uncomment the `tags` section and define each marker accordingly.
