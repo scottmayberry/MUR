@@ -131,6 +131,21 @@ def create_aruco_image(
     # Save the final image as a PNG file with transparency
     cv2.imwrite(output_file, image)  # Write the image to the specified output file
 
+
+import os  # Import os for handling paths
+
+# Define the save folder as a relative path
+SAVE_FOLDER = 'software/aruco_banner_tag_generator/banners/'
+
+# Convert the save folder to an absolute path for printing
+global_save_path = os.path.abspath(SAVE_FOLDER)
+
+# Print the absolute path of the save folder
+print(f"Images will be saved in: {global_save_path}")
+
+# Ensure the save folder exists
+os.makedirs(global_save_path, exist_ok=True)
+
 # Loop to create multiple ArUco images with a progress bar using tqdm
 for i in tqdm(range(50), desc="Generating ArUco Images"):
     # Example usage of the create_aruco_image function
@@ -142,7 +157,7 @@ for i in tqdm(range(50), desc="Generating ArUco Images"):
         top_bottom_border_mm=25.4,  # Top and bottom border clearance in millimeters
         side_border_mm=100,  # Side border clearance in millimeters
         start_id=i,  # Starting ArUco tag ID for this image
-        output_file=f'tag_generator/banners/aruco_grid_{i}.png',  # Output file path for the generated image
+        output_file=os.path.join(SAVE_FOLDER, f'aruco_grid_{i}.png'),  # Use the relative path for saving
         text_size_mm=35,  # Height of the descriptor text in millimeters
         text_thickness=60,  # Thickness of the descriptor text
         text_border_left_clearance_mm=25.4,  # Left clearance for the descriptor text in millimeters

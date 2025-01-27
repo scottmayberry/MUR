@@ -1,8 +1,20 @@
 # ArUco Banner Tag Generator
 
-<p align="center">
-  <img src="./images/example_banners/example_banner.png" alt="MUR Banner Render" width="50%"/>
-</p>
+<div align="center">
+  <figure style="display: inline-block; margin: 10px;">
+    <img src="./images/example_banners/example_banner.png" alt="MUR Banner Render" style="height: 200px; border: 2px solid black;"/>
+    <figcaption>MUR Banner Render</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px;">
+    <img src="./images/banner_on_land.jpg" alt="Banner on Land" style="height: 200px;"/>
+    <figcaption>Banner on Land</figcaption>
+  </figure>
+  <figure style="display: inline-block; margin: 10px;">
+    <img src="./images/banners_underwater.png" alt="Banner Underwater" style="height: 200px;"/>
+    <figcaption>Banners Underwater</figcaption>
+  </figure>
+</div>
+
 
 The **ArUco Tag Generator** is a component of the **Miniature Underwater Robot (MUR)** project. This module is responsible for generating and verifying ArUco tag images used in the robot's banners. These tags are essential for accurate localization and navigation during underwater operations.
 
