@@ -1,3 +1,3 @@
 ### Ballast Box Assembly Video
 
-[![watchvid]()](https://github.com/scottmayberry/MUR/raw/main/hardware/Assembly/assembly_videos/Ballast%20Box%20Assembly.mp4)
+[![watchvid](https://raw.githubusercontent.com/scottmayberry/MUR/raw/main/hardware/Assembly/assembly_videos/ballast_box/ballast_box_thumbnail.png)](https://raw.githubusercontent.com/scottmayberry/MUR/raw/main/hardware/Assembly/assembly_videos/ballast_box/ballast_box_assembly.mp4)
