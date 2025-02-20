@@ -12,7 +12,7 @@ The **Miniature Underwater Robot (MUR)** is an open-source, versatile platform d
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
-  - [Cost and BOM](#cost-and-bom)
+  - [Bill of Materials (BOM) \& Cost](#bill-of-materials-bom--cost)
   - [Hardware Components](#hardware-components)
   - [Software Architecture](#software-architecture)
     - [Integration Workflow](#integration-workflow)
@@ -45,7 +45,7 @@ MUR integrates multiple ROS (Robot Operating System) packages that work in uniso
 - **Emergency Handling**: Incorporates emergency stop and reset functionalities to ensure safe operations.
 - **Simplified Launch Process**: Utilize a single launch file to initialize all necessary components, streamlining deployment and reducing setup complexity.
 
-## Cost and BOM
+## Bill of Materials (BOM) & Cost
 
 |                  | Other Thrusters | T200 Thrusters |
 |------------------|----------------|---------------|
