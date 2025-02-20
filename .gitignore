@@ -161,5 +161,11 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# Ignore Videos (too large)
 videos/
+
+# Ignore Aruco Banners (can be generated seperatley).
 software/*/banners/
+
+# Ignore SolidWorks temporary (~$) files
+~$*

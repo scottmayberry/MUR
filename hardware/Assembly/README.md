@@ -11,6 +11,8 @@ Welcome to the **MUR Assembly Guide**. This document provides clear, step-by-ste
 
 Please follow each section carefully to ensure proper assembly and system functionality.
 
+(the build instructions are mostly within the video. Please follow along for specific instructions.)
+
 ---
 
 # Thruster Assemblies
