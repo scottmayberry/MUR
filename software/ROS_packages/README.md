@@ -1,6 +1,7 @@
 # MUR ROS Packages
 
-![MUR Logo](path_to_logo_image) <!-- Replace with the actual path to your logo image -->
+![MUR Logo](../../images/renders/render_21.png)
+The MUR instructional manual for launching the MUR.
 
 ## Table of Contents
 
@@ -202,4 +203,4 @@ Update the `environment_info.yaml` file within the `mur` package to switch betwe
 
 ## License
 
-This project is licensed under the [MIT License](mur/LICENSE).
+This software is licensed under the [MIT License](mur/LICENSE).

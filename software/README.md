@@ -11,5 +11,3 @@ This directory contains all software components for the **Miniature Underwater R
   [Explore aruco_tag_generator](aruco_banner_tag_generator/README.md)
 
 For detailed instructions and usage, please refer to the README files within each subdirectory.
-
-SI is this working for 

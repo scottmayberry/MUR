@@ -26,7 +26,6 @@ The **Miniature Underwater Robot (MUR)** is an open-source, versatile platform d
     - [Configuration Files](#configuration-files)
     - [Customizing Parameters](#customizing-parameters)
   - [Documentation](#documentation)
-    - [Key Documentation Sections](#key-documentation-sections)
   - [License](#license)
 
 ## Overview
@@ -115,14 +114,6 @@ Note: The MUR uses the **Robot Operating System (ROS)** instead of **ROS 2**. Th
 
 1. **Clone the Repository**: Navigate to your Catkin workspace's `src` directory and clone the `mur` and related packages.
 
-   ```bash
-   cd ~/catkin_ws/src
-   git clone https://github.com/yourusername/mur.git
-   git clone https://github.com/yourusername/mur_control.git
-   git clone https://github.com/yourusername/mur_model.git
-   git clone https://github.com/yourusername/mur_sensors.git
-   ```
-
 2. **Install Dependencies**: Ensure all dependencies listed above are installed.
 
 3. **Build the Workspace**: Navigate back to the root of your workspace and build.
@@ -158,8 +149,6 @@ This command performs the following actions:
    - **mur_sensors.launch**: Initializes all sensor-related nodes, ensuring real-time data acquisition and processing.
    - **mur_model.launch**: Sets up the robot's modeling and simulation components, enabling testing and validation of control strategies.
    - **mur_control.launch**: Starts the control systems for maneuvering and stabilization, combining manual inputs with automated PID controls.
-
-   *Note: Additional modules like `bluebuzz` can be included by uncommenting the respective lines in the `mur.launch` file.*
 
 ### Operating the Robot
 
@@ -199,19 +188,9 @@ Ensure that only one configuration per category is active at a time to prevent c
 
 ## Documentation
 
-Comprehensive documentation for MUR is available in the [MUR Wiki](#). The wiki provides detailed assembly instructions, operational guides, troubleshooting tips, and additional resources to help you get the most out of your MUR system.
+Comprehensive documentation for MUR is available in the each directory (Hardware and Software subdirectories). These provide detailed assembly instructions, operational guides, troubleshooting tips, and additional resources to help you get the most out of your MUR system.
 
-### Key Documentation Sections
-
-- **Assembly Instructions**: Step-by-step guides to assembling the MUR hardware, including PCB soldering, sensor integration, and structural assembly.
-- **Operational Guides**: Instructions on operating the robot, including launching software, controlling movements, and interpreting sensor data.
-- **Troubleshooting**: Common issues and their resolutions to help maintain optimal performance.
-- **Advanced Topics**: Guides on customizing the robot, integrating new sensors, and developing additional functionalities.
 
 ## License
 
-This project is licensed under the [MIT License](mur/LICENSE). See the LICENSE file for more details.
-
----
-
-*This README was last updated on 2025-01-10.*
+This project is licensed under the [MIT License](LICENSE.MIT.md) for software and [CERN-OHL-P-2.0](LICENSE.CERN-OHL-P-2.0.md) for hardware. The combined license is listed in [LICENSE.md](LICENSE.md).
