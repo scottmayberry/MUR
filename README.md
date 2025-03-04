@@ -72,7 +72,7 @@ MUR's hardware is designed to withstand the challenges of underwater environment
 - **Power Management System**: Ensures reliable power distribution to all components.
 - **Structural Frame**: Built from durable materials to protect internal electronics and sensors.
 
-The hardware is designed to be modular, allowing users to add or replace components as needed. Detailed CAD designs, PCB schematics, and assembly instructions are available in the [MUR Wiki](#).
+The hardware is designed to be modular, allowing users to add or replace components as needed. Detailed CAD designs, PCB schematics, and assembly instructions are available in the documentation.
 
 ## Software Architecture
 
