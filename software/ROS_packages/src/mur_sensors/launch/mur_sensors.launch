@@ -1,8 +1,13 @@
 <launch>
+  <!-- Load sensor configuration parameters from sensor_config.yaml -->
   <rosparam command="load" file="$(find mur_sensors)/config/sensor_config.yaml" />
+  <!-- Group all sensor-related nodes under the 'sensors' namespace -->
   <group ns="sensors">
+    <!-- Node for receiving sensor data over UDP -->
     <node pkg="mur_sensors" name="sensors_receive_server" type="ros_sensor_udp_server_dyn.py" output="screen"/>
+    <!-- Node for fusing IMU sensor data to provide accurate orientation estimates -->
     <node pkg="mur_sensors" name="imu_fusion" type="ros_imu_sensor_fusion_dyn.py" output="screen"/>
+    <!-- Node for managing automatic network configuration for sensor modules -->
     <node pkg="mur_sensors" name="sensors_auto_network" type="ros_sensor_udp_auto_network.py" output="screen"/>
   </group>
 </launch>

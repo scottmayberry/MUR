@@ -169,3 +169,6 @@ software/*/banners/
 
 # Ignore SolidWorks temporary (~$) files
 ~$*
+
+# ignore vscode settings
+.vscode/*
