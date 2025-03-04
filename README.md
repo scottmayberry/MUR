@@ -4,23 +4,17 @@
   <img src="./images/renders/render_27.png" alt="MUR Swarm Render" width="100%"/>
 </p>
 
-## Embedded YouTube Videos
-
-### Video 1: [Title or Description]
-[![Video 1](https://img.youtube.com/vi/NDeZn8o2X9w/0.jpg)](https://www.youtube.com/watch?v=NDeZn8o2X9w)
-
-### Video 2: [Title or Description]
-[![Video 2](https://img.youtube.com/vi/NzxzlQSZj9Q/0.jpg)](https://www.youtube.com/watch?v=NzxzlQSZj9Q)
-
-
 The **Miniature Underwater Robot (MUR)** is an open-source, versatile platform designed for underwater exploration, data collection, and research. Combining hardware with advanced software capabilities, MUR provides researchers, educators, and hobbyists with an accessible tool for aquatic studies and underwater robotics development.
+
+| MUR Intro | Example Deployments |
+|-----------|---------------------|
+| [![▶️ MUR Intro](https://img.youtube.com/vi/NzxzlQSZj9Q/0.jpg)](https://www.youtube.com/watch?v=NzxzlQSZj9Q) | [![▶️ Example Deployments](https://img.youtube.com/vi/NDeZn8o2X9w/0.jpg)](https://www.youtube.com/watch?v=NDeZn8o2X9w) |
+| [▶️ Watch on YouTube](https://www.youtube.com/watch?v=NzxzlQSZj9Q) | [▶️ Watch on YouTube](https://www.youtube.com/watch?v=NDeZn8o2X9w) |
+
 
 ## Table of Contents
 
 - [Miniature Underwater Robot (MUR)](#miniature-underwater-robot-mur)
-  - [Embedded YouTube Videos](#embedded-youtube-videos)
-    - [Video 1: \[Title or Description\]](#video-1-title-or-description)
-    - [Video 2: \[Title or Description\]](#video-2-title-or-description)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
   - [Features](#features)
