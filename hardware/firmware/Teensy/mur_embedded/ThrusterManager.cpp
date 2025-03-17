@@ -99,19 +99,20 @@ void ThrusterManager::setThrusterUsCommands(const int* commands, int size) {
 // Converts unit-scaled thruster input to a PWM signal value.
 // Applies a non-linear transformation to map unit inputs to PWM ranges suitable for thrusters.
 int ThrusterManager::unit_scaled_thruster_input_to_pwm_signal(float unit_scaled_signal) {
-  if (abs(unit_scaled_signal) < ZERO_THRESHOLD_FOR_THRUSTERS) {
-    return 1500; // Neutral PWM value indicating no thrust
-  } else {
-    int out = 0;
-    float calc = 3.5 * abs(unit_scaled_signal); // Calculate intermediate value based on unit input
-    if (unit_scaled_signal > 0) {
-      // Forward thrust calculation
-      out = int(round(-10.8 * sq(calc) + calc * 119.5 + 1540));
+    if (abs(unit_scaled_signal) < ZERO_THRESHOLD_FOR_THRUSTERS) {
+      return 1500; // Neutral PWM value indicating no thrust
     } else {
-      // Reverse thrust calculation
-      out = int(round(11.31 * sq(calc) + calc * -137.4 + 1456));
-    }
-    return out; // Return the calculated PWM value
+      int out = 0;
+      float calc = 3.5 * abs(unit_scaled_signal); // Calculate intermediate value based on unit input
+      if (unit_scaled_signal > 0) {
+        // Forward thrust calculation
+        out = int(round(-10.8 * sq(calc) + calc * 119.5 + 1540));
+      } else {
+        // Reverse thrust calculation
+        out = int(round(11.31 * sq(calc) + calc * -137.4 + 1456));
+      }
+      return out; // Return the calculated PWM value
+  }
 }
 
 // Processes received thruster commands from the JSON document.
